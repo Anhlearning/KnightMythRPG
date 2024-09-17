@@ -1,0 +1,5 @@
+Day1:
+-Unity Setup + Github Desktop 
+-TitleMap
+-PlayerSprite + Animating 
+-Player Physics 
