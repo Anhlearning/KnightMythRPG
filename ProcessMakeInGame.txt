@@ -1,5 +1,10 @@
 Day1:
--Unity Setup + Github Desktop 
--TitleMap
--PlayerSprite + Animating 
--Player Physics 
+-Unity Setup + Github Desktop ✅
+-TitleMap✅
+-PlayerSprite + Animating ❎
+	+ player movement animation
+	+ player rotate animation
+	+ arrow rotate 
+-Player Physics ❎
+	+Collider
+
