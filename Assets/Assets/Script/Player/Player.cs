@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private bool canMove;
     [SerializeField]
     private float moveSpeed=5f;
+    private PlayerAimDir playerAimDir;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
         playerInput=GetComponent<PlayerInput>();
         playerSprite=GetComponent<SpriteRenderer>();
         animator=GetComponent<Animator>();
+        playerAimDir=GetComponent<PlayerAimDir>();
     }
     private void Start() {
         
@@ -33,8 +35,11 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate() {
         Move();
-        // HandleRotate();
+        HandleRotate();
         
+    }
+    private void HandleRotate(){
+        animator.SetFloat("AngelRotate",playerAimDir.getAngel());
     }
     private void InputHandle(){
         movement=playerInput.GetMovementVectorNormolized();
@@ -42,6 +47,7 @@ public class Player : MonoBehaviour
         animator.SetFloat("moveX",movement.x);
         animator.SetFloat("moveY",movement.y);
         animator.SetFloat("Speed",movement.magnitude);
+
         // if(movement !=Vector2.zero){
         //     animator.SetBool("canMove",true);
         // }
@@ -58,16 +64,6 @@ public class Player : MonoBehaviour
     }
     private void Move(){
         rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
-    }
-    private void HandleRotate(){
-        Vector3 mouseInput= Input.mousePosition;
-        Vector3 playerScreenPoint=Camera.main.WorldToScreenPoint(transform.position);
-        if(mouseInput.x < playerScreenPoint.x){
-            Flip();
-        }
-        else {
-            Flip();
-        }
     }
     private void Flip(){
        isFacing=!isFacing;
