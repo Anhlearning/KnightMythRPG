@@ -20,7 +20,9 @@ public class PlayerAimDir : MonoBehaviour
         Vector2 aimDir=(Vector2) ( mousePos-transform.position).normalized;
         float angel = Mathf.Atan2(aimDir.y,aimDir.x)*Mathf.Rad2Deg;
         angelDir=angel;
-        amirTrans.eulerAngles=new Vector3(0,0,angel);
+        Quaternion q=amirTrans.rotation;
+        q.eulerAngles=new Vector3(0,0,angel);
+        amirTrans.rotation=q;
     }
     public float getAngel(){
         return angelDir;

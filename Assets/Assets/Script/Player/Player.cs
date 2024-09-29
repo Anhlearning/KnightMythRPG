@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,19 +16,20 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float moveSpeed=5f;
     private PlayerAimDir playerAimDir;
+    private PlayerAttack playerAttack;
 
     private void Awake()
     {
         rb=GetComponent<Rigidbody2D>();
         playerInput=GetComponent<PlayerInput>();
+        playerAttack=GetComponent<PlayerAttack>();
         playerSprite=GetComponent<SpriteRenderer>();
         animator=GetComponent<Animator>();
         playerAimDir=GetComponent<PlayerAimDir>();
     }
     private void Start() {
-        
-    }
 
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -35,35 +37,30 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate() {
         Move();
-        HandleRotate();
-        
+        HandleRotate(); 
     }
     private void HandleRotate(){
-        animator.SetFloat("AngelRotate",playerAimDir.getAngel());
+        if(!canMove){
+            animator.SetFloat("AngelRotate",playerAimDir.getAngel());
+        }
     }
     private void InputHandle(){
         movement=playerInput.GetMovementVectorNormolized();
-
-        animator.SetFloat("moveX",movement.x);
-        animator.SetFloat("moveY",movement.y);
-        animator.SetFloat("Speed",movement.magnitude);
-
-        // if(movement !=Vector2.zero){
-        //     animator.SetBool("canMove",true);
-        // }
-        // else {
-        //     animator.SetBool("canMove",false);
-        // }
-        // if(movement.x <0 && isFacing){
-        //     Flip();
-        // }
-        // if(movement.x >0 && !isFacing) {
-        //     Flip();
-        // }
-        // // Debug.Log(movement);
+        if(movement.magnitude !=0 && !playerAttack.IsAttack()){
+            canMove=true;
+            animator.SetBool("canMove",canMove);
+        }
+        else {
+            canMove =false;
+            animator.SetBool("canMove",canMove);
+        }
     }
     private void Move(){
-        rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+        if(canMove){
+            animator.SetFloat("moveX",movement.x);
+            animator.SetFloat("moveY",movement.y);
+            rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+        }
     }
     private void Flip(){
        isFacing=!isFacing;
