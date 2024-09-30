@@ -6,30 +6,64 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static Player Instance{set;get;}
     private Rigidbody2D rb;
     private PlayerInput playerInput;
-    private SpriteRenderer playerSprite;
+    [SerializeField]
+    private TrailRenderer trailRenderer;
+
     private Vector2 movement;
     private Animator animator;
+    private bool isDashing=false;
     private bool isFacing;
     private bool canMove;
+    private float startSpeed;
     [SerializeField]
     private float moveSpeed=5f;
+    [SerializeField]
+    private float dashSpeed;
     private PlayerAimDir playerAimDir;
     private PlayerAttack playerAttack;
 
     private void Awake()
     {
+        Instance=this;
         rb=GetComponent<Rigidbody2D>();
         playerInput=GetComponent<PlayerInput>();
         playerAttack=GetComponent<PlayerAttack>();
-        playerSprite=GetComponent<SpriteRenderer>();
         animator=GetComponent<Animator>();
         playerAimDir=GetComponent<PlayerAimDir>();
-    }
-    private void Start() {
 
     }
+    private void Start() {
+        startSpeed=moveSpeed;
+        playerInput.playerInputOnDash += PlayerInput_OnDash;
+    }
+
+    private void PlayerInput_OnDash(object sender, EventArgs e)
+    {
+        Dash(); 
+    }
+
+    private void Dash()
+    {
+        if(!isDashing){
+            isDashing=true;
+            moveSpeed *=dashSpeed;
+            trailRenderer.emitting=true;
+            StartCoroutine(EndDashCourotine());
+        }
+    }
+    private IEnumerator EndDashCourotine(){
+        float dashTime=0.2f;
+        float dashCD=1f;
+        yield return new WaitForSeconds(dashTime);
+        moveSpeed=startSpeed;
+        trailRenderer.emitting=false;
+        yield return new WaitForSeconds(dashCD);
+        isDashing=false;
+    }
+
     // Update is called once per frame
     private void Update()
     {
