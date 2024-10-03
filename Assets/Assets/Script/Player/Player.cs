@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     // Start is called before the first frame update
-    public static Player Instance{set;get;}
     private Rigidbody2D rb;
     private PlayerInput playerInput;
     [SerializeField]
@@ -25,9 +24,9 @@ public class Player : MonoBehaviour
     private PlayerAimDir playerAimDir;
     private PlayerAttack playerAttack;
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance=this;
+        base.Awake();
         rb=GetComponent<Rigidbody2D>();
         playerInput=GetComponent<PlayerInput>();
         playerAttack=GetComponent<PlayerAttack>();

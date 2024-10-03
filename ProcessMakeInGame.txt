@@ -7,4 +7,14 @@ Day1:
 	+ arrow rotate 
 -Player Physics ❎
 	+Collider
-
+Day2: 
+-Controller + Attack
+Day3:
+-Tile Map
+Day4:
+-transparency + parallax 
+ý tưởng của trans: 
+-player collider -> chuyển alpha color hiện tại -> sang mức targer sau một khoảng time 
+- khi exit -> set alpha color hiện tại -> sang mức 1f 
+ý tưởng parallax: 
+- khi camera di chuyển thì lấy ngược hướng di chuyển của cam * offset dịch chuyển 
