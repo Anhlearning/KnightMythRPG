@@ -11,8 +11,14 @@ public class PlayerInput : MonoBehaviour
     public event EventHandler PlayerInputOnAttack;
     public event EventHandler PlayerInputCancelAttack;
     public event EventHandler playerInputOnDash;
+    public event EventHandler<IndexActiveEventArgs> PlayerInputActiveSlotInventory;
+
+    public class IndexActiveEventArgs : EventArgs{
+        public int indexActive;
+    }
     // Start is called before the first frame update
     private void Awake() {
+        Instance=this;
         playerController= new PlayerController();
         playerController.Enable();
     }
@@ -23,6 +29,14 @@ public class PlayerInput : MonoBehaviour
         playerController.Attack.Attack.performed += PlayerController_OnAttackInput;
         playerController.Attack.Attack.canceled += PlayerController_CancelAttackInput;
         playerController.Movement.Dash.performed += PlayerController_OnDash;
+        playerController.Inventory.KeyBoard.performed += PlayerController_ActiveInventorySlot;
+    }
+
+    private void PlayerController_ActiveInventorySlot(InputAction.CallbackContext context)
+    {   
+        PlayerInputActiveSlotInventory?.Invoke(this,new IndexActiveEventArgs{
+            indexActive=(int)context.ReadValue<float>()
+        });
     }
 
     private void PlayerController_OnDash(InputAction.CallbackContext context)
@@ -44,5 +58,8 @@ public class PlayerInput : MonoBehaviour
         Vector2 inputvector= playerController.Movement.Move.ReadValue<Vector2>();
         return inputvector.normalized;
     }
-
+    public int GetIndexInventory(){
+        int indexInventory=(int)playerController.Inventory.KeyBoard.ReadValue<float>();
+        return indexInventory;
+    }
 }

@@ -7,6 +7,10 @@ public class PlayerAimDir : MonoBehaviour
 {
     private Transform amirTrans;
     float angelDir;
+    public static PlayerAimDir Instance{get;set;}
+    private void Awake() {
+        Instance=this;
+    }
     void Start()
     {
         amirTrans=transform.Find("AimDir");

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class Player : Singleton<Player>
 {
@@ -79,7 +80,7 @@ public class Player : Singleton<Player>
     }
     private void InputHandle(){
         movement=playerInput.GetMovementVectorNormolized();
-        if(movement.magnitude !=0 && !playerAttack.IsAttack()){
+        if(movement.magnitude !=0 && !ActiveWeapon.Instance.IsAttack()){
             canMove=true;
             animator.SetBool("canMove",canMove);
         }
@@ -94,9 +95,5 @@ public class Player : Singleton<Player>
             animator.SetFloat("moveY",movement.y);
             rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
         }
-    }
-    private void Flip(){
-       isFacing=!isFacing;
-       transform.Rotate(0,180f,0);
     }
 }
