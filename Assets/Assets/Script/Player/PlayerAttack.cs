@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(ResetAnimationFromAttack());
     }
     IEnumerator ResetAnimationFromAttack(){
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(ActiveWeapon.Instance.getTimeBeetweenAttack());
         animator.SetBool("isAttack",false);
     }
 }

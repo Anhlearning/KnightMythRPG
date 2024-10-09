@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour,IWeapon
 {
+    [SerializeField]private WeaponInfo weaponInfo;
     private Animator baseAnim;
     private float swordCD=0.5f;
     private void Awake() {
         baseAnim=GetComponentInChildren<Animator>();
+    }
+    public WeaponInfo GetWeaponInfo(){
+        return weaponInfo;
     }
     public void Attack()
     {   
@@ -18,7 +22,6 @@ public class Sword : MonoBehaviour,IWeapon
     IEnumerator SwordCountDown(){
         yield return new WaitForSeconds(swordCD);
         baseAnim.SetBool("isAttack",false);
-        ActiveWeapon.Instance.ToggleAticeAttack(false);
         gameObject.SetActive(false);
     }
     

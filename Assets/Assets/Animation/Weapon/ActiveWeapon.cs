@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class ActiveWeapon : Singleton<ActiveWeapon>
 {   
+    // [SerializeField] private float timeDurationToggleWeapon=0.5f;
     public event EventHandler ToggleAnimPlayer;
-    [SerializeField] private Transform weaponCurrent;
+    public Transform WeaponCurrent{get;set;}
+    private float timeBetweenAttack;
+
     private bool isAttack,attacking=false;
     protected override void Awake() {
         base.Awake();
@@ -15,8 +18,20 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
     {
         PlayerInput.Instance.PlayerInputOnAttack += ActiveWeapon_OnAttack;
         PlayerInput.Instance.PlayerInputCancelAttack += ActiveWeapon_CancelAttack;
+        AttackCountDown();
     }
-
+    void Update()
+    {
+        Attack();   
+    }
+    public void WeaponNull(){
+        WeaponCurrent=null;
+    }
+    public void NewWeapon(Transform weaponCurrent){
+        WeaponCurrent=weaponCurrent;
+        AttackCountDown();
+        timeBetweenAttack=weaponCurrent.GetComponent<IWeapon>().GetWeaponInfo().weaponCountDown;
+    }
     private void ActiveWeapon_CancelAttack(object sender, EventArgs e)
     {
         isAttack=false;
@@ -26,25 +41,29 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
     {
         isAttack=true;
     }
-
-    void Update()
-    {
-        Attack();   
+    private void AttackCountDown(){
+        attacking=true;
+        StopAllCoroutines();
+        StartCoroutine(TimeBetweenAttackCountDown());
     }
-    public void ToggleAticeAttack(bool value){
-        attacking=value;
+    IEnumerator TimeBetweenAttackCountDown(){
+        yield return new WaitForSeconds(timeBetweenAttack);
+        attacking=false;
     }
     private void Attack()
     {
         if(isAttack && !attacking){
-            attacking=true;
+            AttackCountDown();
             ToggleAnimPlayer?.Invoke(this,EventArgs.Empty);
-            weaponCurrent.gameObject.SetActive(true);
-            IWeapon weapon =weaponCurrent.GetComponent<IWeapon>();
+            WeaponCurrent.gameObject.SetActive(true);
+            IWeapon weapon =WeaponCurrent.GetComponent<IWeapon>();
             weapon?.Attack();
         }
     }
     public bool IsAttack(){
         return isAttack;
+    }
+    public float getTimeBeetweenAttack(){
+        return timeBetweenAttack;
     }
 }
