@@ -23,14 +23,15 @@ public class Player : Singleton<Player>
     [SerializeField]
     private float dashSpeed;
     private PlayerAimDir playerAimDir;
-    private PlayerAttack playerAttack;
-
+    private PlayerHealth playerHealth;
+    private KnockBack knockBack;
     protected override void Awake()
     {
         base.Awake();
+        knockBack=GetComponent<KnockBack>();
         rb=GetComponent<Rigidbody2D>();
         playerInput=GetComponent<PlayerInput>();
-        playerAttack=GetComponent<PlayerAttack>();
+        playerHealth=GetComponent<PlayerHealth>();
         animator=GetComponent<Animator>();
         playerAimDir=GetComponent<PlayerAimDir>();
 
@@ -80,7 +81,7 @@ public class Player : Singleton<Player>
     }
     private void InputHandle(){
         movement=playerInput.GetMovementVectorNormolized();
-        if(movement.magnitude !=0 && !ActiveWeapon.Instance.IsAttack()){
+        if(movement.magnitude !=0 && !ActiveWeapon.Instance.IsAttack() && !knockBack.GettingKnockBack){
             canMove=true;
             animator.SetBool("canMove",canMove);
         }

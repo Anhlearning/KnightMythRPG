@@ -22,7 +22,9 @@ public class Flash : MonoBehaviour
         spriteRenderer.material=whiteFlash;
         yield return new WaitForSeconds(restoreMatTime);
         spriteRenderer.material=defaultMaterial;
-        enemyHealth.DetectDeath();
+    }
+    public float getRestoreMatTime(){
+        return restoreMatTime;
     }
 
     // Update is called once per frame
