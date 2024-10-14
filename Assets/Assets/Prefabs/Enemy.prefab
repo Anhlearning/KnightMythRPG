@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 1936271977137720965}
   - component: {fileID: 2272283654903712667}
   - component: {fileID: 6896237605638371694}
-  - component: {fileID: 1446652912570058054}
-  - component: {fileID: 4183966018676586568}
   - component: {fileID: 3442858273265525264}
   - component: {fileID: 6586447255215745451}
   - component: {fileID: 7991920526919924116}
@@ -140,35 +138,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1446652912570058054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4037485516239393318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c8ff4b3fcc4b7345b091614917160d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrollingPosList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &4183966018676586568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4037485516239393318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b320788f339f04aab3b735b42d7515, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2.5
 --- !u!114 &3442858273265525264
 MonoBehaviour:
   m_ObjectHideFlags: 0

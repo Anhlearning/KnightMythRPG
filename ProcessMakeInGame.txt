@@ -18,3 +18,9 @@ Day4:
 - khi exit -> set alpha color hiện tại -> sang mức 1f 
 ý tưởng parallax: 
 - khi camera di chuyển thì lấy ngược hướng di chuyển của cam * offset dịch chuyển 
+.....
+...
+Processing Next: 
+-AI ENEMY 
+-Inventory System 
+-Interact 
