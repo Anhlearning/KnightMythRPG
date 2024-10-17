@@ -11,6 +11,6 @@ public class DamageSource : MonoBehaviour
         //     return;
         // }
         EnemyHealth enemyHealth=other.GetComponent<EnemyHealth>();
-        enemyHealth?.TakeDamage(damage);
+        enemyHealth?.TakeDamage(damage,gameObject.GetComponentInParent<Player>().gameObject);
     }
 }

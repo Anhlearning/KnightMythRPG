@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public abstract class SenseComp : MonoBehaviour
 {
-    private float timeForgetting=2f;
+    [SerializeField]private float timeForgetting=2f;
     static List<PerceptionStumuli> registerStumulis= new List<PerceptionStumuli>();
     List<PerceptionStumuli>currentStumulis = new List<PerceptionStumuli>();
     Dictionary<PerceptionStumuli,Coroutine>forgettingRoutines= new Dictionary<PerceptionStumuli, Coroutine>();
@@ -42,7 +42,6 @@ public abstract class SenseComp : MonoBehaviour
                             stumuli=stumuli,
                             successfullySense=true
                         });
-                        Debug.Log("Succes stumuli");
                     }
                 }
             }
@@ -56,7 +55,6 @@ public abstract class SenseComp : MonoBehaviour
     }
     IEnumerator ForgettingCroutine(PerceptionStumuli perceptionStumuli){
         yield return new WaitForSeconds(timeForgetting);
-        Debug.Log("I lost track stumuli");
         forgettingRoutines.Remove(perceptionStumuli);
         UpdatePerception?.Invoke(this , new OnPerceptionUpdate{
             stumuli=perceptionStumuli,
