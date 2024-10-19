@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AlwaySense : SenseComp
 {
-    [SerializeField] private float distance=2f;
+    [SerializeField] private float distance=2.5f;
     protected override bool IsStumuliSensable(PerceptionStumuli stumuli)
     {
         if(Vector2.Distance(gameObject.transform.position,stumuli.transform.position)<=distance){

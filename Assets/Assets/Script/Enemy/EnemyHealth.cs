@@ -26,7 +26,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage,GameObject instagitor){
         currentHealth-=damage;
-        knockBack.GetKnockBack(Player.Instance.transform,knockBackTrust);
+        knockBack.GetKnockBack(instagitor.transform,knockBackTrust);
         EnemyTakeDamage?.Invoke(this, new Instagitor{
             whoDamage=instagitor
         });

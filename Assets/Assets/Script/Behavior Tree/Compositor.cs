@@ -7,6 +7,9 @@ public class Compositor : BTNode
     LinkedList<BTNode> child= new LinkedList<BTNode>();
     LinkedListNode<BTNode>currentChild;
 
+    public void AddChild(BTNode bTNode){
+        child.AddLast(bTNode);
+    }
     protected override NodeResult Excute()
     {
         if(child.Count ==0){
