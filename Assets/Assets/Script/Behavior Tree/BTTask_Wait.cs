@@ -11,7 +11,6 @@ public class BTTask_Wait : BTNode
     }
     protected override NodeResult Excute()
     {
-        Debug.Log("Start Time Count");
         timeCount=0f;
         if(timeCount>= waitTime){
             return NodeResult.Succes;
@@ -22,7 +21,6 @@ public class BTTask_Wait : BTNode
     {
         timeCount+= Time.deltaTime;
         if(timeCount >= waitTime){
-            Debug.Log("Done BTTask_Wait");
             return NodeResult.Succes;
         }
         return NodeResult.Processing;

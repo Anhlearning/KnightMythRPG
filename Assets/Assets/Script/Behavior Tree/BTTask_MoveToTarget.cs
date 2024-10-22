@@ -55,6 +55,14 @@ public class BTTask_MoveToTarget : BTNode
         }
         return NodeResult.Processing;
     }
+    protected override void End()
+    {
+        if(navMeshAgent != null){
+            navMeshAgent.isStopped=true;
+        }
+        behaviorTree.Blackboard.OnBlackBoardValueChange -= BlackBoardValueChange;
+        base.End();
+    }
     private bool IsTargetInAcceptable(){
         return Vector2.Distance(behaviorTree.gameObject.transform.position,targetObject.transform.position)<=acceptableDistance;
     }

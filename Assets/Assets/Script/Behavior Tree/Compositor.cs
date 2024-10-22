@@ -29,9 +29,30 @@ public class Compositor : BTNode
         return false;
     }
     protected override void End()
-    {
+    {   
+        if(currentChild==null){
+            return ;
+        }
+        currentChild.Value.Abort();
         currentChild=null;
-        base.End();
     }
-    
+    public override BTNode Get()
+    {
+        if(currentChild ==null){
+            if(child.Count == 0){
+                return this;
+            }
+            else {
+                return child.First.Value.Get();
+            }
+        }
+        return currentChild.Value.Get();
+    }
+    public override void SortPriority(ref int priorityRef)
+    {
+        base.SortPriority(ref priorityRef);
+        foreach(BTNode child in child){
+            child.SortPriority(ref priorityRef);
+        }
+    }
 } 

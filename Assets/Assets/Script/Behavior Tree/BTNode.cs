@@ -10,6 +10,7 @@ public enum NodeResult{
 public class BTNode 
 {
     private bool started=false;
+    int priority;
     public NodeResult UpdateNode(){
         if(!started){
             started=true;
@@ -37,5 +38,18 @@ public class BTNode
     private void EndNode(){
         started=false;
         End();
+    }
+    public virtual void Abort(){
+        EndNode();
+    }
+    public virtual BTNode Get(){
+        return this;
+    }
+    public int getPriority(){
+        return priority;
+    }
+    public virtual void SortPriority(ref int priorityRef){
+        priority=priorityRef++;
+        Debug.Log($"{this} has priority {priority}");
     }
 }

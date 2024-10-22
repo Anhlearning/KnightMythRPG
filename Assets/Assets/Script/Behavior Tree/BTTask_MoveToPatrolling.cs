@@ -38,12 +38,16 @@ public class BTTask_MoveToPatrolling : BTNode
     {
         if(isAcceptableDistance()){
             navMeshAgent.isStopped=true;
-            Debug.Log("Move Done");
             return NodeResult.Succes;
         }
         return NodeResult.Processing;
     }
-
+    protected override void End()
+    {
+        Debug.Log("END Patrolling");
+        navMeshAgent.isStopped=true;
+        base.End();
+    }
 
     private bool isAcceptableDistance(){
         return Vector2.Distance(tree.transform.position,target)<=acceptableDistance;

@@ -18,7 +18,6 @@ public class BTTask_GetPatrolling : BTNode
     {
         if(patrollingComp!=null &&patrollingComp.GetNextPatrolling(out patrollingPos)){
             tree.Blackboard.SetOrAddData(patrollingKey,patrollingPos);
-            Debug.Log(patrollingPos);
             return NodeResult.Succes;
         }
         return NodeResult.Failure;
